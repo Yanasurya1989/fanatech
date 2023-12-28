@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Inventories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class Inventory extends Controller
 {
@@ -14,7 +16,8 @@ class Inventory extends Controller
      */
     public function index()
     {
-        return view('backend.inventory.index');
+        $inventory = Inventories::all();
+        return view('backend.inventory.index', compact('inventory'));
     }
 
     /**
@@ -24,7 +27,8 @@ class Inventory extends Controller
      */
     public function create()
     {
-        //
+        
+        return view('backend.inventory.create');
     }
 
     /**
@@ -35,7 +39,31 @@ class Inventory extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'code' => 'required',
+            'name' => 'required',
+            'price' => 'required',
+            'stock' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return back()->withErrors($validator->messages());
+        }
+
+        $data = [
+            'code' => $request->code,
+            'name' => $request->name,
+            'price' => $request->price,
+            'stock' => $request->stock,
+        ];
+
+        $inventory = Inventories::create($data);
+
+        if($inventory){
+            return Redirect()->to('/inventory')->withSuccess('Succes');
+        }else{
+            return back()->withErrors('failed');
+        }
     }
 
     /**
@@ -80,6 +108,12 @@ class Inventory extends Controller
      */
     public function destroy(Inventories $inventories)
     {
-        //
+        $inventories = $inventories->delete();
+
+        if($inventories){
+            return back()->withSuccess('Success');
+        }else{
+            return back()->withErrors('failed');
+        }
     }
 }

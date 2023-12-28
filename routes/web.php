@@ -31,3 +31,6 @@ Route::get('/dashboard', [Dashboard::class, 'index'])->middleware('auth');
 
 // Inventory
 Route::get('/inventory', [Inventory::class, 'index'])->middleware('auth');
+Route::get('/inventory/create', [Inventory::class, 'create'])->middleware('auth');
+Route::post('/inventory/store', [Inventory::class, 'store'])->middleware('auth');
+Route::get('/inventory/destroy/{inventories}', [Inventory::class, 'destroy'])->middleware('auth');
