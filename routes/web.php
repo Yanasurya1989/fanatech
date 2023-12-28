@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\Inventory;
 use App\Http\Controllers\Login;
 use Illuminate\Support\Facades\Route;
 
@@ -27,3 +28,6 @@ Route::get('/logout', [Login::class, 'logout'])->middleware('auth');
 
 // Dashboard backend
 Route::get('/dashboard', [Dashboard::class, 'index'])->middleware('auth');
+
+// Inventory
+Route::get('/inventory', [Inventory::class, 'index'])->middleware('auth');
