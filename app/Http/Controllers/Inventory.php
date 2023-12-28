@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportInventory;
 use App\Models\Inventories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Inventory extends Controller
 {
@@ -16,8 +18,8 @@ class Inventory extends Controller
      */
     public function index()
     {
-        $inventory = Inventories::all();
-        return view('backend.inventory.index', compact('inventory'));
+        $inventories = Inventories::all();
+        return view('backend.inventory.index', compact('inventories'));
     }
 
     /**
@@ -85,7 +87,7 @@ class Inventory extends Controller
      */
     public function edit(Inventories $inventories)
     {
-        //
+        return view('backend.inventory.edit', compact('inventories'));
     }
 
     /**
@@ -97,7 +99,33 @@ class Inventory extends Controller
      */
     public function update(Request $request, Inventories $inventories)
     {
-        //
+        // $validator = Validator::make($request->all(),[
+        //     'id' => 'id',
+        //     'code' => 'required',
+        //     'name' => 'required',
+        //     'price' => 'required',
+        //     'stock' => 'required',
+        // ]);
+
+        // if($validator){
+        //     return back()->withErrors($validator->messages());
+        // }
+
+        $data = [
+            'id' => $request->id,
+            'code' => $request->code,
+            'name' => $request->name,
+            'price' => $request->price,
+            'stock' => $request->stock,
+        ];
+
+        $inventories = $inventories->update($data);
+
+        if($inventories){
+            return Redirect()->to('/inventory')->withSuccess('Updated');
+        }else{
+            return back()->withErrors('failed');
+        }
     }
 
     /**
@@ -115,5 +143,9 @@ class Inventory extends Controller
         }else{
             return back()->withErrors('failed');
         }
+    }
+
+    function export_excel(){
+        return Excel::download(new ExportInventory, "inventories.xlsx");
     }
 }
