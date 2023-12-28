@@ -9,9 +9,12 @@
             <th>Created At</th>
             <th>Updated At</th>
             <th>Aksi</th>
+            {{-- @isset($isView)
+                <th class="disabled-sorting text-right" style="width:12%">Aksi</th>                
+            @endisset --}}
         </tr>
     </thead>
-    <tfoot>
+    {{-- <tfoot>
         <tr>
             <th>No</th>
             <th>Code</th>
@@ -20,14 +23,17 @@
             <th>Stock</th>
             <th>Created At</th>
             <th>Updated At</th>
-            <th>Aksi</th>
+            @isset($isView)
+                <th class="disabled-sorting text-right" style="width:12%">Aksi</th>                
+            @endisset
         </tr>
-    </tfoot>
+    </tfoot> --}}
     <tbody>
         @foreach ($inventories as $list)
 
             <tr>
-                <td>{{$loop->iteration}}</td>
+                @php $no=1 @endphp
+                <td>{{$no++}}</td>
                 <td>{{$list->code}}</td>
                 <td>{{$list->name}}</td>
                 <td>{{$list->price}}</td>
@@ -38,6 +44,13 @@
                     <a href="/inventory/edit/{{$list->id}}">Update</a> | 
                     <a href="/inventory/destroy/{{$list->id}}" onclick="return confirm('Yakin ?')">Delete</a>
                 </td>
+                
+                {{-- @isset($isView)
+                <td>
+                    <a href="/inventory/edit/{{$list->id}}">Update</a> | 
+                    <a href="/inventory/destroy/{{$list->id}}" onclick="return confirm('Yakin ?')">Delete</a>
+                </td>
+                @endisset --}}
             </tr>
             
         @endforeach

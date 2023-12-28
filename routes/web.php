@@ -36,7 +36,7 @@ Route::get('/dashboard', [Dashboard::class, 'index'])->middleware('auth');
 Route::get('/inventory', [Inventory::class, 'index'])->middleware('auth');
 Route::get('/inventory/create', [Inventory::class, 'create'])->middleware('auth');
 Route::post('/inventory/store', [Inventory::class, 'store'])->middleware('auth');
-Route::get('/inventory/destroy/{inventories}', [Inventory::class, 'destroy'])->middleware('auth');
+Route::get('/inventory/destroy/{inventories}', [Inventory::class, 'destroy'])->middleware(['auth', 'super-admin']);
 Route::get('/inventory/edit/{inventories}', [Inventory::class, 'edit'])->middleware('auth');
 Route::post('/inventory/update/{inventories}', [Inventory::class, 'update'])->middleware('auth');
 Route::get('/inventory/export/excel', [Inventory::class, 'export_excel']);

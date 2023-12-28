@@ -15,10 +15,31 @@
             </a>
             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav">
-                    <a class="nav-link" href="/inventory">Inventory</a>
-                    <a class="nav-link" href="/users">User</a>
-                    <a class="nav-link" href="/sales">Sales</a>
-                    <a class="nav-link" href="/purchases">Purchases</a>
+                    @if (Auth::user()->role_id != 1)
+                        -
+                    @else
+                        <a class="nav-link" href="/inventory">Inventory</a>
+                    @endif
+                    
+                    @if (Auth::user()->role_id != 2)
+                        -
+                    @else
+                        <a class="nav-link" href="/sales">Sales</a>
+                    @endif
+
+                    @if (Auth::user()->role_id != 1)
+                        -
+                    @else
+                        <a class="nav-link" href="/users">User</a>
+                    @endif
+                    
+                    
+                    @if (Auth::user()->role_id != 3)
+                        -
+                    @else
+                        <a class="nav-link" href="/purchases">Purchases</a>
+                    @endif
+                    
                 </nav>
             </div>
             {{-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
