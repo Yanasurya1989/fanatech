@@ -32,21 +32,22 @@
                 </tr>
             </tfoot>
             <tbody>
-                {{-- @foreach ($users as $list)
+                @foreach ($sales as $list)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $list->name }}</td>
-                        <td>{{ $list->email }}</td>
+                        <td>{{ $list->number }}</td>
+                        <td>{{ $list->date }}</td>
+                        <td>{{ $list->user_id }}</td>
                         <td>{{ $list->created_at }}</td>
                         <td>{{ $list->updated_at }}</td>
                         <td>
+                            <a href="/sales/{{ $list->id }}">Detil</a> |
+                            
                             <a href="/inventory/edit/{{ $list->id }}">Update</a> |
-                            <a href="/inventory/destroy/{{ $list->id }}"
-                                onclick="return confirm('Yakin ?')">Delete</a>
+                            <a href="/inventory/destroy/{{ $list->id }}" onclick="return confirm('Yakin ?')">Delete</a>
                         </td>
                     </tr>
-                @endforeach --}}
-                
+                @endforeach
             </tbody>
         </table>
     </div>

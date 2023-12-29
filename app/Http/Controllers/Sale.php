@@ -14,7 +14,8 @@ class Sale extends Controller
      */
     public function index()
     {
-        return view('backend.sales.index');
+        $sales = Sales::all();
+        return view('backend.sales.index', compact('sales'));
     }
 
     /**
@@ -46,7 +47,16 @@ class Sale extends Controller
      */
     public function show(Sales $sales)
     {
-        //
+        // dd($sales);
+        // $sales = Sales::all();
+        // return view('backend.sales.detil', compact('sales'));
+    }
+
+    public function showw($id){
+        // dd($id);
+        $template = Sales::where('id', $id)->get();
+
+        return view('backend.sales.detil', compact('template'));
     }
 
     /**

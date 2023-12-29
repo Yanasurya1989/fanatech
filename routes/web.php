@@ -6,6 +6,7 @@ use App\Http\Controllers\Login;
 use App\Http\Controllers\Purchase;
 use App\Http\Controllers\Sale;
 use App\Http\Controllers\User_controller;
+use App\Models\Sales;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,6 +47,8 @@ Route::get('/users', [User_controller::class, 'index'])->middleware('auth');
 
 // Sale
 Route::get('/sales', [Sale::class, 'index'])->middleware('auth');
+
+Route::get('/sales/{id}', [Sale::class, 'showw']);
 
 // Purchase
 Route::get('/purchases', [Purchase::class, 'index'])->middleware('auth');
